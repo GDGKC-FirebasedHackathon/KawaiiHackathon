@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.corikachu.yourname.models.DTOFeed;
 
@@ -55,6 +56,11 @@ public class NewFeedActivity extends AppCompatActivity {
         if (id == R.id.menu_new_feed_submit) {
             String title = editTextTitle.getText().toString();
             String content = editTextContent.getText().toString();
+            if (title.isEmpty() || content.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "다 채워", Toast.LENGTH_LONG).show();
+                return false;
+            }
+
             DTOFeed newFeed = new DTOFeed(0, 0, title, content, 0, 0);
             DatabaseViewModel.getInstance().addFeed(newFeed);
 
