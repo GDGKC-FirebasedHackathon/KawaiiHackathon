@@ -1,20 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
-    android:orientation="vertical">
+    android:padding="10dp">
+
+
+    <com.corikachu.yourname.CircleImageView
+        android:id="@+id/recyclerview_item_profile_image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/image_user_profile" />
+
+    <TextView
+        android:id="@+id/recyclerview_item_profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="3dp"
+        android:layout_toEndOf="@+id/recyclerview_item_profile_image"
+        android:text="Wonkyun Lim"
+        android:textSize="15sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/recyclerview_item_profile_name"
+        android:layout_marginStart="18dp"
+        android:layout_toEndOf="@+id/recyclerview_item_profile_image"
+        android:text="4 hours ago"
+        android:textSize="12sp" />
+
 
     <TextView
         android:id="@+id/recyclerview_item_feed_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="title" />
+        android:layout_below="@+id/recyclerview_item_profile_image"
+        android:layout_marginTop="6dp"
+        android:text="title"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/recyclerview_item_feed_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="content" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/recyclerview_item_feed_title"
+        android:text="content"
+        android:textSize="12sp" />
 
-</LinearLayout>
+</RelativeLayout>
