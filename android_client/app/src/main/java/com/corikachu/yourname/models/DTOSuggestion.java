@@ -7,6 +7,7 @@ package com.corikachu.yourname.models;
 public class DTOSuggestion {
     private long id;
     private long feedId;
+    private String title;
     private String content;
     private long createdDate;
     private long updatedDate;
@@ -18,6 +19,7 @@ public class DTOSuggestion {
     public DTOSuggestion(long id, long feedId, String title, String content, long createdDate, long updatedDate) {
         this.id = id;
         this.feedId = feedId;
+        this.title = title;
         this.content = content;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
@@ -61,5 +63,13 @@ public class DTOSuggestion {
 
     public void setUpdatedDate(long updatedDate) {
         this.updatedDate = updatedDate;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }
