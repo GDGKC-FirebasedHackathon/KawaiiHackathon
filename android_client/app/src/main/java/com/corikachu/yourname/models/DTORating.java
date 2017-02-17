@@ -5,38 +5,38 @@ package com.corikachu.yourname.models;
  */
 
 public class DTORating {
-    private long id;
-    private long ownerId;
+    private long feedId;
+    private long suggestId;
     private int point;
 
     public DTORating() {
 
     }
 
-    public DTORating(long id, long ownerId, int point) {
-        this.id = id;
-        this.ownerId = ownerId;
+    public DTORating(long feedId, long suggestId, int point) {
+        this.feedId = feedId;
+        this.suggestId = suggestId;
         this.point = point;
     }
 
-    public long getId() {
-        return id;
+    public long getFeedId() {
+        return feedId;
     }
 
-    public long getOwnerId() {
-        return ownerId;
+    public long getSuggestId() {
+        return suggestId;
     }
 
     public int getPoint() {
         return point;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setFeedId(long feedId) {
+        this.feedId = feedId;
     }
 
-    public void setOwnerId(long ownerId) {
-        this.ownerId = ownerId;
+    public void setSuggestId(long suggestId) {
+        this.suggestId = suggestId;
     }
 
     public void setPoint(int point) {
