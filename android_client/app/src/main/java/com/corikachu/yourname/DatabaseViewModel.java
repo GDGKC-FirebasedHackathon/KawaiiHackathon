@@ -1,7 +1,7 @@
 package com.corikachu.yourname;
 
 import com.corikachu.yourname.models.DTOFeed;
-import com.corikachu.yourname.models.DTOSuggestions;
+import com.corikachu.yourname.models.DTOSuggestion;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -68,29 +68,58 @@ public class DatabaseViewModel {
         updateFeeds.clear();
     }
 
-    public void addSuggestion(long updateFeedId, final DTOSuggestions suggestions) {
-        final String suggestionValue = String.valueOf(updateFeedId) + "/" + SUGGESTIONS;
-        Query updateSuggestionIdQuery = feedRef.child(suggestionValue).orderByChild("id").limitToLast(1);
+    public void addSuggestion(long updateFeedId, final DTOSuggestion suggestions) {
+        final String suggestionValue = String.valueOf(updateFeedId) + "/" + SUGGESTIONS + "/";
+        final Query updateSuggestionIdQuery = feedRef.child(suggestionValue).orderByChild("id").limitToLast(1);
+
         updateSuggestionIdQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                DTOSuggestions suggestion = dataSnapshot.getValue(DTOSuggestions.class);
-                lastSuggestionId = suggestion.getId();
+                if(dataSnapshot.hasChildren()) {
+                    final ChildEventListener eventListener = new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                            DTOSuggestion suggestion = dataSnapshot.getValue(DTOSuggestion.class);
+                            lastSuggestionId = suggestion.getId() + 1;
 
-                updateSuggestions.put(suggestionValue + String.valueOf(lastSuggestionId + 1), suggestions);
-                feedRef.updateChildren(updateSuggestions);
-                updateSuggestions.clear();
+                            suggestions.setId(lastSuggestionId);
+                            updateSuggestions.put(String.valueOf(lastSuggestionId), suggestions);
+                            DatabaseReference suggestionRef = databaseReference.child(FEEDS + "/" + suggestionValue + "/");
+                            suggestionRef.updateChildren(updateSuggestions);
+                            updateSuggestions.clear();
+                            updateSuggestionIdQuery.removeEventListener(this);
+                        }
+
+                        @Override
+                        public void onChildChanged(DataSnapshot dataSnapshot, String s) { }
+
+                        @Override
+                        public void onChildRemoved(DataSnapshot dataSnapshot) { }
+
+                        @Override
+                        public void onChildMoved(DataSnapshot dataSnapshot, String s) { }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) { }
+                    };
+                    updateSuggestionIdQuery.addChildEventListener(eventListener);
+                } else {
+                    lastSuggestionId = 0;
+                    updateSuggestions.put(String.valueOf(lastSuggestionId), suggestions);
+                    DatabaseReference suggestionRef = databaseReference.child(FEEDS + "/" + suggestionValue);
+                    suggestionRef.setValue(updateSuggestions);
+                    updateSuggestions.clear();
+                }
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) { }
         });
+
     }
 
-    public void updateSuggestion(long updateFeedId, long updateSuggestionId, final DTOSuggestions suggestions) {
-        final String suggestionValue = String.valueOf(updateFeedId) + "/" + SUGGESTIONS + String.valueOf(updateSuggestionId);
+    public void updateSuggestion(long updateFeedId, long updateSuggestionId, final DTOSuggestion suggestions) {
+        final String suggestionValue = String.valueOf(updateFeedId) + "/" + SUGGESTIONS + "/" + String.valueOf(updateSuggestionId);
 
         updateSuggestions.put(suggestionValue, suggestions);
         feedRef.updateChildren(updateSuggestions);
@@ -105,51 +134,16 @@ public class DatabaseViewModel {
         }
 
         @Override
-        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-        }
+        public void onChildChanged(DataSnapshot dataSnapshot, String s) { }
 
         @Override
-        public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-        }
+        public void onChildRemoved(DataSnapshot dataSnapshot) { }
 
         @Override
-        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-        }
+        public void onChildMoved(DataSnapshot dataSnapshot, String s) { }
 
         @Override
-        public void onCancelled(DatabaseError databaseError) {
-
-        }
-    }
-
-    private class SuggestionIdUpdateEventListener implements ChildEventListener {
-        @Override
-        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-        }
-
-        @Override
-        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-        }
-
-        @Override
-        public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-        }
-
-        @Override
-        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-        }
-
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-
-        }
+        public void onCancelled(DatabaseError databaseError) { }
     }
 
 }
