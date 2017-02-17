@@ -87,11 +87,11 @@ public class FeedActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        adapter.clear();
+
         databaseReference.child("feeds").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                adapter.clear();
-
                 DTOFeed feed = dataSnapshot.getValue(DTOFeed.class);
                 adapter.addItem(feed);
                 adapter.notifyDataSetChanged();
