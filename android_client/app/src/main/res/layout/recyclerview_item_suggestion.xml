@@ -18,6 +18,7 @@
             android:text="suggestion name" />
 
         <Button
+            android:id="@+id/recyclerview_item_button_suggestion_like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
