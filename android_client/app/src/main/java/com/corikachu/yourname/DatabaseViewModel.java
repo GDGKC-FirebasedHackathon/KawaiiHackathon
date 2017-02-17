@@ -77,7 +77,7 @@ public class DatabaseViewModel {
         feedHashMap.clear();
     }
 
-    public void addSuggestion(final long targetFeedId, final DTOSuggestion suggestion) {
+    public void addSuggestion(final long targetFeedId, final DTOSuggestion newSuggestion) {
         final String suggestionValue = String.valueOf(targetFeedId) + "/" + SUGGESTIONS + "/";
         final Query updateSuggestionIdQuery = feedRef.child(suggestionValue).orderByChild("id").limitToLast(1);
 
@@ -90,9 +90,9 @@ public class DatabaseViewModel {
                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                             DTOSuggestion suggestion = dataSnapshot.getValue(DTOSuggestion.class);
                             lastSuggestionId = suggestion.getId() + 1;
-                            suggestion.setFeedId(targetFeedId);
-                            suggestion.setId(lastSuggestionId);
-                            suggestionHashMap.put(String.valueOf(lastSuggestionId), suggestion);
+                            newSuggestion.setFeedId(targetFeedId);
+                            newSuggestion.setId(lastSuggestionId);
+                            suggestionHashMap.put(String.valueOf(lastSuggestionId), newSuggestion);
                             DatabaseReference suggestionRef = databaseReference.child(FEEDS + "/" + suggestionValue + "/");
                             suggestionRef.updateChildren(suggestionHashMap);
                             suggestionHashMap.clear();
@@ -116,8 +116,8 @@ public class DatabaseViewModel {
                     updateSuggestionIdQuery.addChildEventListener(eventListener);
                 } else {
                     lastSuggestionId = 0;
-                    suggestion.setFeedId(targetFeedId);
-                    suggestionHashMap.put(String.valueOf(lastSuggestionId), suggestion);
+                    newSuggestion.setFeedId(targetFeedId);
+                    suggestionHashMap.put(String.valueOf(lastSuggestionId), newSuggestion);
                     DatabaseReference suggestionRef = databaseReference.child(FEEDS + "/" + suggestionValue);
                     suggestionRef.updateChildren(suggestionHashMap);
                     suggestionHashMap.clear();
