@@ -1,10 +1,12 @@
 package com.corikachu.yourname;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -137,6 +139,13 @@ public class FeedDetailActivity extends AppCompatActivity {
 
         DTOSuggestion newSuggestion = new DTOSuggestion(0, feed.getId(), newSugString, newSugString, 0, 0, 0);
         DatabaseViewModel.getInstance().addSuggestion(feed.getId(), newSuggestion);
+
+        editTextNewSuggestion.setText("");
+        View view2 = this.getCurrentFocus();
+        if (view2 != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
 }
