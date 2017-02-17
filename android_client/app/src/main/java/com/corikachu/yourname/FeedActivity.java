@@ -51,6 +51,7 @@ public class FeedActivity extends AppCompatActivity {
         layoutManager.scrollToPosition(0);
         feedListView.setLayoutManager(layoutManager);
 
+        DatabaseViewModel.getInstance();
         adapter = new FeedAdapter(new ArrayList<DTOFeed>(), this);
         feedListView.setAdapter(adapter);
 
