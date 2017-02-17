@@ -46,6 +46,7 @@ public class FeedDetailActivity extends AppCompatActivity {
     @Bind(R.id.activity_feed_detail_button_new_suggestion_submit)
     Button buttonNewSuggestionSubmit;
 
+
     private DTOFeed feed;
     private SuggestionAdapter adapter;
 
