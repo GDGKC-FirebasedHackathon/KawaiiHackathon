@@ -69,6 +69,17 @@ public class SuggestionAdapter extends RecyclerView.Adapter<SuggestionViewHolder
         items.add(item);
     }
 
+    public void updateLike(long suggestionId, long likeCount) {
+        for (DTOSuggestion suggestion : items) {
+            if (suggestion.getId() == suggestionId) {
+                suggestion.setLikeCount(likeCount);
+                notifyDataSetChanged();
+                break;
+            }
+        }
+
+    }
+
     public Observable<DTOSuggestion> getOnItemClickSubject() {
         return onClickItemLike;
     }

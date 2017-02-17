@@ -84,7 +84,7 @@ public class FeedDetailActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(DTOSuggestion suggestion) {
-                        // TODO : voting
+                        DatabaseViewModel.getInstance().upVoteRating(suggestion.getFeedId(), suggestion.getId());
                     }
 
                     @Override
@@ -112,7 +112,8 @@ public class FeedDetailActivity extends AppCompatActivity {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                // TODO : implement it
+                DTOSuggestion suggestion = dataSnapshot.getValue(DTOSuggestion.class);
+                adapter.updateLike(suggestion.getId(), suggestion.getLikeCount());
             }
 
             @Override

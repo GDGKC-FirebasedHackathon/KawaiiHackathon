@@ -143,16 +143,17 @@ public class DatabaseViewModel {
         ratingRef.setValue(emptyRating);
     }
 
-    public void upVoteRating(long targetFeedId, long targetSuggestionId) {
+    public void upVoteRating(final long targetFeedId, final long targetSuggestionId) {
         final String targetRefString = FEEDS + "/" + String.valueOf(targetFeedId) +
                 "/" + SUGGESTIONS + "/" + String.valueOf(targetSuggestionId) + "/";
-        Query updateRatingQuery = databaseReference.child(targetRefString).limitToLast(1);
+        Query updateRatingQuery = databaseReference.child(targetRefString);
         updateRatingQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 DTOSuggestion suggestion = dataSnapshot.getValue(DTOSuggestion.class);
                 suggestion.setLikeCount(suggestion.getLikeCount() + 1);
-                DatabaseReference sugRef = databaseReference.child(targetRefString);
+                DatabaseReference sugRef = databaseReference.child(FEEDS + "/" + String.valueOf(targetFeedId) +
+                        "/" + SUGGESTIONS + "/");
 
                 suggestionHashMap.put(String.valueOf(suggestion.getId()), suggestion);
                 sugRef.updateChildren(suggestionHashMap);
@@ -160,21 +161,24 @@ public class DatabaseViewModel {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) { }
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
         });
 
     }
 
-    public void downVoteRating(long targetFeedId, long targetSuggestionId) {
+    public void downVoteRating(final long targetFeedId, final long targetSuggestionId) {
         final String targetRefString = FEEDS + "/" + String.valueOf(targetFeedId) +
                 "/" + SUGGESTIONS + "/" + String.valueOf(targetSuggestionId) + "/";
-        Query updateRatingQuery = databaseReference.child(targetRefString).limitToLast(1);
+        Query updateRatingQuery = databaseReference.child(targetRefString);
         updateRatingQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 DTOSuggestion suggestion = dataSnapshot.getValue(DTOSuggestion.class);
                 suggestion.setLikeCount(suggestion.getLikeCount() - 1);
-                DatabaseReference sugRef = databaseReference.child(targetRefString);
+                DatabaseReference sugRef = databaseReference.child(FEEDS + "/" + String.valueOf(targetFeedId) +
+                        "/" + SUGGESTIONS + "/");
 
                 suggestionHashMap.put(String.valueOf(suggestion.getId()), suggestion);
                 sugRef.updateChildren(suggestionHashMap);
