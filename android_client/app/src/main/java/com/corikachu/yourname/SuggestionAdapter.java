@@ -47,16 +47,12 @@ public class SuggestionAdapter extends RecyclerView.Adapter<SuggestionViewHolder
     public void onBindViewHolder(SuggestionViewHolder viewHolder, int position) {
         DTOSuggestion model = items.get(position);
         viewHolder.textViewSuggestionName.setText(model.getContent());
-        if (model.getLikeCount() > 0) {
-            viewHolder.buttonSuggestionLike.setText(
-                    String.format(Locale.KOREA, "좋아요 %d", model.getLikeCount()));
-        } else {
-            viewHolder.buttonSuggestionLike.setText("좋아요");
-        }
+        viewHolder.buttonSuggestionLike.setText(
+                String.format(Locale.KOREA, "좋아요 %d", model.getLikeCount()));
 
 
         final DTOSuggestion boundData = this.items.get(position);
-        viewHolder.getButtonSuggestionLike().setOnClickListener(new View.OnClickListener() {
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onClickItemLike.onNext(boundData);
