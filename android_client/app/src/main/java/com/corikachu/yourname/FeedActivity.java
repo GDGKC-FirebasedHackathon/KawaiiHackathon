@@ -65,8 +65,9 @@ public class FeedActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onNext(DTOFeed value) {
+                    public void onNext(DTOFeed feed) {
                         Intent intent = new Intent(FeedActivity.this, FeedDetailActivity.class);
+                        intent.putExtra("feed", feed);
                         FeedActivity.this.startActivity(intent);
                     }
 

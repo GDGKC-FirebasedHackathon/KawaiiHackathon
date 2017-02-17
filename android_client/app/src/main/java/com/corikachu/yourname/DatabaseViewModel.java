@@ -12,6 +12,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Default File Header.
@@ -32,7 +33,7 @@ public class DatabaseViewModel {
     private DatabaseReference databaseReference;
     private DatabaseReference feedRef;
 
-    private Map<String, DTOFeed> updateFeeds = new HashMap<>();
+    private Map<String, Object> updateFeeds = new HashMap<>();
     private Map<String, Object> updateSuggestions = new HashMap<>();
 
     private DatabaseViewModel() {
@@ -62,9 +63,17 @@ public class DatabaseViewModel {
         return lastFeedId;
     }
 
+    public void addFeed(DTOFeed feed) {
+        updateFeeds.put(String.valueOf(lastFeedId + 1), feed);
+        feed.setId(lastFeedId + 1);
+        feedRef.updateChildren(updateFeeds);
+        updateFeeds.clear();
+    }
+
     public void updateFeed(long updateFeedId, DTOFeed feed) {
         updateFeeds.put(String.valueOf(updateFeedId), feed);
-        feedRef.setValue(updateFeeds);
+        feed.setId(updateFeedId);
+        feedRef.updateChildren(updateFeeds);
         updateFeeds.clear();
     }
 

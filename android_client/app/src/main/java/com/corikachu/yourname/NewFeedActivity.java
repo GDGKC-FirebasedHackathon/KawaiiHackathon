@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.widget.EditText;
 
+import com.corikachu.yourname.models.DTOFeed;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -51,7 +53,12 @@ public class NewFeedActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.menu_new_feed_submit) {
-            // TODO : send data
+            String title = editTextTitle.getText().toString();
+            String content = editTextContent.getText().toString();
+            DTOFeed newFeed = new DTOFeed(0, 0, title, content, 0, 0);
+            DatabaseViewModel.getInstance().addFeed(newFeed);
+
+            finish();
             return true;
         }
 
