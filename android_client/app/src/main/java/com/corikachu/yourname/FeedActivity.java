@@ -20,6 +20,10 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class FeedActivity extends AppCompatActivity {
 
@@ -49,6 +53,32 @@ public class FeedActivity extends AppCompatActivity {
 
         adapter = new FeedAdapter(new ArrayList<DTOFeed>(), this);
         feedListView.setAdapter(adapter);
+
+        adapter.getOnItemClickSubject()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new Observer<DTOFeed>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(DTOFeed value) {
+                        Intent intent = new Intent(FeedActivity.this, FeedDetailActivity.class);
+                        FeedActivity.this.startActivity(intent);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
 
         databaseReference.child("feeds").addChildEventListener(new ChildEventListener() {
             @Override
