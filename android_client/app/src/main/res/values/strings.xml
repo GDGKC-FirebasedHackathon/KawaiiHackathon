@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Yourname</string>
-    <string name="rating_like">Like</string>
+    <string name="rating_like">좋아요</string>
     <string name="new_feed_hint_title">제목</string>
     <string name="new_feed_hint_content">내용</string>
     <string name="new_suggestion_hint">새로운 이름을 추천해보세요</string>

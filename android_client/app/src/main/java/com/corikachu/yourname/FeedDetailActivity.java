@@ -133,7 +133,7 @@ public class FeedDetailActivity extends AppCompatActivity {
             return;
         }
 
-        DTOSuggestion newSuggestion = new DTOSuggestion(0, feed.getId(), newSugString, newSugString, 0, 0);
+        DTOSuggestion newSuggestion = new DTOSuggestion(0, feed.getId(), newSugString, newSugString, 0, 0, 0);
         DatabaseViewModel.getInstance().addSuggestion(feed.getId(), newSuggestion);
     }
 

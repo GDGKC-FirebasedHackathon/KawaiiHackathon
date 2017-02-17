@@ -5,6 +5,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.corikachu.yourname.models.DTOSuggestion;
+
+import java.util.Locale;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 

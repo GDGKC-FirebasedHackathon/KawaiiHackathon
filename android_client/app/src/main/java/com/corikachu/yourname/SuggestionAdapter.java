@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.corikachu.yourname.models.DTOSuggestion;
 
 import java.util.List;
+import java.util.Locale;
 
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
@@ -46,12 +47,19 @@ public class SuggestionAdapter extends RecyclerView.Adapter<SuggestionViewHolder
     public void onBindViewHolder(SuggestionViewHolder viewHolder, int position) {
         DTOSuggestion model = items.get(position);
         viewHolder.textViewSuggestionName.setText(model.getContent());
+        if (model.getLikeCount() > 0) {
+            viewHolder.buttonSuggestionLike.setText(
+                    String.format(Locale.KOREA, "좋아요 %d", model.getLikeCount()));
+        } else {
+            viewHolder.buttonSuggestionLike.setText("좋아요");
+        }
 
-        final DTOSuggestion bindedData = this.items.get(position);
+
+        final DTOSuggestion boundData = this.items.get(position);
         viewHolder.getButtonSuggestionLike().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickItemLike.onNext(bindedData);
+                onClickItemLike.onNext(boundData);
             }
         });
     }

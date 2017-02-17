@@ -9,6 +9,7 @@ public class DTOSuggestion {
     private long feedId;
     private String title;
     private String content;
+    private long likeCount;
     private long createdDate;
     private long updatedDate;
 
@@ -16,11 +17,12 @@ public class DTOSuggestion {
 
     }
 
-    public DTOSuggestion(long id, long feedId, String title, String content, long createdDate, long updatedDate) {
+    public DTOSuggestion(long id, long feedId, String title, String content, long likeCount, long createdDate, long updatedDate) {
         this.id = id;
         this.feedId = feedId;
         this.title = title;
         this.content = content;
+        this.likeCount = likeCount;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
     }
@@ -71,5 +73,13 @@ public class DTOSuggestion {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public long getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(long likeCount) {
+        this.likeCount = likeCount;
     }
 }
