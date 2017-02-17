@@ -67,6 +67,10 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder> {
         items.add(item);
     }
 
+    public void clear() {
+        this.items.clear();
+    }
+
     public Observable<DTOFeed> getOnItemClickSubject() {
         return onClickSubject;
     }
