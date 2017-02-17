@@ -30,4 +30,16 @@ public class DTORating {
     public int getPoint() {
         return point;
     }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setOwnerId(long ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
+    }
 }

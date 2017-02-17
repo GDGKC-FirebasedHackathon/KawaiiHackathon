@@ -42,4 +42,24 @@ public class DTOSuggestions {
     public long getUpdatedDate() {
         return updatedDate;
     }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setFeedId(long feedId) {
+        this.feedId = feedId;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setCreatedDate(long createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public void setUpdatedDate(long updatedDate) {
+        this.updatedDate = updatedDate;
+    }
 }

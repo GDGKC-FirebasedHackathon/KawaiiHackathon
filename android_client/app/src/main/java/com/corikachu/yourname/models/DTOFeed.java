@@ -48,4 +48,28 @@ public class DTOFeed {
     public long getUpdatedDate() {
         return updatedDate;
     }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setOwnerId(long ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setCreatedDate(long createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public void setUpdatedDate(long updatedDate) {
+        this.updatedDate = updatedDate;
+    }
 }
