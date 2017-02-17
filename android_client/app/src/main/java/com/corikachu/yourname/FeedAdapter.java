@@ -10,6 +10,9 @@ import com.corikachu.yourname.models.DTOFeed;
 
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.subjects.PublishSubject;
+
 /**
  * Created by loki on 2017. 2. 17..
  */
@@ -19,7 +22,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder> {
     private Context context;
     private List<DTOFeed> items;
 
-    private int lastPosition = -1;
+    private final PublishSubject<DTOFeed> onClickSubject = PublishSubject.create();
 
     public FeedAdapter(List<DTOFeed> modelData, Context context) {
         if (modelData == null) {
@@ -45,6 +48,14 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder> {
         DTOFeed model = items.get(position);
         viewHolder.textViewTitle.setText(model.getTitle());
         viewHolder.textViewContent.setText(model.getContent());
+
+        final DTOFeed bindedData = this.items.get(position);
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickSubject.onNext(bindedData);
+            }
+        });
     }
 
     @Override
@@ -54,6 +65,10 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder> {
 
     public void addItem(DTOFeed item) {
         items.add(item);
+    }
+
+    public Observable<DTOFeed> getOnItemClickSubject() {
+        return onClickSubject;
     }
 
 }

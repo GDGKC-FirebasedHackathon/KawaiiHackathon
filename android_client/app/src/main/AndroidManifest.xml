@@ -15,8 +15,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FeedDetailActivity"/>
-        <activity android:name=".NewFeedActivity"/>
+        <activity android:name=".FeedDetailActivity" />
+        <activity
+            android:name=".NewFeedActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
 
 </manifest>
