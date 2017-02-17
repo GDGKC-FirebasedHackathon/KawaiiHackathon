@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.corikachu.yourname.models.DTOFeed;
+import com.corikachu.yourname.models.DTOSuggestion;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -29,6 +30,7 @@ public class FeedDetailActivity extends AppCompatActivity {
     @Bind(R.id.activity_feed_detail_button_new_suggestion_submit)
     Button buttonNewSuggestionSubmit;
 
+    private DTOFeed feed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +39,21 @@ public class FeedDetailActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        DTOFeed feed = getIntent().getParcelableExtra("feed");
+        feed = getIntent().getParcelableExtra("feed");
         textViewTitle.setText(feed.getTitle());
         textViewContent.setText(feed.getContent());
     }
 
     @OnClick(R.id.activity_feed_detail_button_new_suggestion_submit)
     public void onClickNewSuggestionSubmit(View view) {
-        Toast.makeText(this, "onClick", Toast.LENGTH_LONG).show();
+        String newSugString = editTextNewSuggestion.getText().toString();
+        if (newSugString.isEmpty()) {
+            Toast.makeText(this, "입력해", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        DTOSuggestion newSuggestion = new DTOSuggestion(0, feed.getId(), newSugString, newSugString, 0, 0);
+        DatabaseViewModel.getInstance().addSuggestion(feed.getId(), newSuggestion);
     }
 
 }
