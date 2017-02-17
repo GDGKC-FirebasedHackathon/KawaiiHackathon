@@ -12,7 +12,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:padding="20dp">
 
         <com.corikachu.yourname.CircleImageView
             android:id="@+id/recyclerview_item_profile_image"
@@ -48,9 +48,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/recyclerview_item_profile_image"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="10dp"
             android:text="title"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/recyclerview_item_feed_content"
@@ -58,6 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/recyclerview_item_feed_title"
+            android:layout_marginTop="10dp"
             android:text="content"
             android:textSize="12sp" />
 
