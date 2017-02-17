@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Yourname</string>
+    <string name="rating_like">Like</string>
 </resources>

@@ -1,9 +1,12 @@
 package com.corikachu.yourname;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.corikachu.yourname.models.DTOFeed;
 import com.google.firebase.database.ChildEventListener;
@@ -16,11 +19,15 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class FeedActivity extends AppCompatActivity {
 
     @Bind(R.id.activity_main_recyclerview_feed_list)
     RecyclerView feedListView;
+
+    @Bind(R.id.activity_main_fab_new_feed)
+    FloatingActionButton newFeedButton;
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
@@ -31,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_feed);
 
         ButterKnife.bind(this);
 
@@ -65,6 +72,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) { }
         });
+    }
+
+    @OnClick(R.id.activity_main_fab_new_feed)
+    public void onClickNewFeed(View view) {
+        Intent intent = new Intent(this, NewFeedActivity.class);
+        this.startActivity(intent);
     }
 
 }
